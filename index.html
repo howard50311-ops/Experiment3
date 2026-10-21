@@ -1,0 +1,2337 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="臺北市立大學淺層折射震測實習互動式課程介紹 — 聽地底的迴響，從儀器原理、實測資料分析到科學建模與實習心得の水彩風格全紀錄。">
+  <meta name="keywords" content="地球物理, 折射震測, 淺層震測, 北市大, 202610_UTELS, 走時曲線, 斯乃爾定律, 水彩風格">
+  <title>聽地底的迴響 ── 北市大淺層折射震測實習｜水彩風格互動課程指南</title>
+  
+  <!-- Google Fonts: 典雅宋體、清秀黑體與手寫水彩風英文字體 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Marck+Script&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       WATERCOLOR AESTHETIC DESIGN SYSTEM (水彩風核心設計系統)
+       ========================================================================== */
+    :root {
+      /* 水彩冷暖色系 (Artistic Watercolor Palette) */
+      --wc-paper: #FAF7F2;          /* 暖白手工冷壓水彩紙基底 */
+      --wc-paper-card: #FFFFFFFA;    /* 水彩卡片紙 */
+      --wc-paper-rough: #F3EFE6;     /* 粗紋水彩紙陰影 */
+      
+      /* 水彩顏料洗色 (Watercolor Washes & Pigments) */
+      --pigment-indigo: #2D556E;     /* 普魯士藍 / 深青藍 */
+      --pigment-cerulean: #4E86A8;   /* 蔚藍 / 天青淡彩 */
+      --pigment-cerulean-light: #EBF3F8;
+      
+      --pigment-sage: #4E7C65;       /* 灰綠 / 鼠尾草綠 */
+      --pigment-sage-light: #EEF5F1;
+      
+      --pigment-sienna: #C57B38;     /* 生赭 / 暖琥珀 */
+      --pigment-sienna-light: #FAF2E8;
+      
+      --pigment-terracotta: #B85843; /* 熟褐 / 陶土玫瑰 */
+      --pigment-terracotta-light: #FDF3F0;
+
+      --pigment-gold: #D4A346;       /* 金黃赭色 */
+      
+      /* 水墨色系 (Ink & Calligraphy Tones) */
+      --ink-primary: #27343F;        /* 研磨濃墨 */
+      --ink-secondary: #526371;      /* 潤墨灰色 */
+      --ink-muted: #7E909F;          /* 淡墨鉛筆灰 */
+      --ink-line: rgba(78, 134, 168, 0.22); /* 鉛筆淡線 */
+
+      /* 手繪有機圓角 (Deckled / Organic Borders) */
+      --border-organic-lg: 24px 10px 28px 12px / 12px 26px 14px 22px;
+      --border-organic-md: 18px 8px 20px 9px / 9px 19px 10px 17px;
+      --border-organic-sm: 12px 6px 14px 7px / 7px 13px 8px 12px;
+
+      /* 柔和水彩漫射陰影 */
+      --shadow-watercolor: 0 12px 35px -8px rgba(78, 134, 168, 0.12), 0 4px 14px -3px rgba(197, 123, 56, 0.08);
+      --shadow-hover: 0 18px 45px -10px rgba(78, 134, 168, 0.22), 0 8px 20px -5px rgba(184, 88, 67, 0.14);
+      --shadow-polaroid: 0 10px 28px -5px rgba(39, 52, 63, 0.14), 0 2px 6px rgba(0, 0, 0, 0.04);
+
+      /* 字型系統 */
+      --font-serif: 'Noto Serif TC', 'Songti TC', Georgia, serif;
+      --font-sans: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      --font-hand: 'Caveat', 'Marck Script', cursive;
+    }
+
+    /* 基礎重置與背景水彩紋理 */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      background-color: var(--wc-paper);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--ink-primary);
+      line-height: 1.75;
+      background-color: var(--wc-paper);
+      position: relative;
+      overflow-x: hidden;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 手工冷壓水彩紙質感紋理（SVG Noise Filter） */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.28;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    }
+
+    /* 背景大面積水彩暈染光暈 (Floating Watercolor Washes) */
+    .watercolor-bg-splash {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(75px);
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: multiply;
+      opacity: 0.32;
+    }
+    .splash-1 { top: -60px; left: -80px; width: 520px; height: 480px; background: radial-gradient(circle, #74AED0 0%, #BFE1F2 60%, transparent 80%); }
+    .splash-2 { top: 250px; right: -100px; width: 600px; height: 520px; background: radial-gradient(circle, #F3BA7A 0%, #FCE8D3 65%, transparent 80%); }
+    .splash-3 { top: 1500px; left: -120px; width: 560px; height: 540px; background: radial-gradient(circle, #89BFA4 0%, #D8EFE4 65%, transparent 80%); }
+    .splash-4 { top: 2800px; right: -100px; width: 580px; height: 550px; background: radial-gradient(circle, #EAA697 0%, #FDE4DF 70%, transparent 80%); }
+
+    /* 頂部進度條 */
+    .reading-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--pigment-cerulean), var(--pigment-sienna), var(--pigment-terracotta), var(--pigment-sage));
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(78, 134, 168, 0.5);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ==========================================================================
+       導覽列 (NAVIGATION BAR)
+       ========================================================================== */
+    .watercolor-nav {
+      position: sticky;
+      top: 16px;
+      z-index: 900;
+      margin: 16px auto 0;
+      max-width: 1180px;
+      padding: 10px 24px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(78, 134, 168, 0.2);
+      border-radius: var(--border-organic-md);
+      box-shadow: var(--shadow-watercolor);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink-primary);
+    }
+    .nav-brush-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 65% 35% 70% 30% / 40% 60% 40% 60%;
+      background: linear-gradient(135deg, var(--pigment-cerulean), var(--pigment-sage));
+      display: inline-block;
+      box-shadow: 0 2px 6px rgba(78, 134, 168, 0.4);
+    }
+    .nav-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.05em;
+      color: var(--pigment-indigo);
+    }
+    .nav-subtitle-tag {
+      font-family: var(--font-hand);
+      font-size: 1.15rem;
+      color: var(--pigment-sienna);
+      margin-left: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 8px 14px;
+      border-radius: 20px;
+      transition: all 0.25s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--pigment-indigo);
+      background: var(--pigment-cerulean-light);
+    }
+
+    /* 照片顯示切換開關 (Photo Toggle Switch) */
+    .photo-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      color: var(--pigment-indigo);
+      background: var(--pigment-cerulean-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(78, 134, 168, 0.3);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .photo-toggle-btn:hover {
+      background: #DCEAF4;
+      transform: translateY(-1px);
+    }
+    .photo-toggle-btn.mode-hidden {
+      color: var(--pigment-sienna);
+      background: var(--pigment-sienna-light);
+      border-color: rgba(197, 123, 56, 0.35);
+    }
+
+    /* ==========================================================================
+       HERO 區塊
+       ========================================================================== */
+    .hero-section {
+      padding: 40px 0 50px;
+      position: relative;
+    }
+    .hero-card {
+      background: var(--wc-paper-card);
+      border: 1.8px solid rgba(78, 134, 168, 0.2);
+      border-radius: var(--border-organic-lg);
+      box-shadow: var(--shadow-watercolor);
+      padding: 44px 44px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-hand);
+      font-size: 1.45rem;
+      color: var(--pigment-sienna);
+      margin-bottom: 12px;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: 2.85rem;
+      font-weight: 900;
+      line-height: 1.25;
+      color: var(--pigment-indigo);
+      margin-bottom: 18px;
+      letter-spacing: 0.02em;
+    }
+    .hero-title .highlight-wash {
+      position: relative;
+      display: inline-block;
+      white-space: nowrap;
+      z-index: 1;
+    }
+    .hero-title .highlight-wash::after {
+      content: "";
+      position: absolute;
+      bottom: 6px;
+      left: -6px;
+      right: -6px;
+      height: 18px;
+      background: linear-gradient(90deg, rgba(234, 168, 88, 0.35), rgba(243, 186, 122, 0.5));
+      border-radius: 12px 28px 10px 24px / 6px 14px 8px 12px;
+      z-index: -1;
+      transform: rotate(-0.5deg);
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--ink-secondary);
+      max-width: 840px;
+      margin-bottom: 30px;
+      line-height: 1.85;
+    }
+    .hero-desc strong {
+      color: var(--ink-primary);
+      font-weight: 600;
+    }
+
+    .hero-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .metric-card {
+      padding: 16px 20px;
+      background: var(--wc-paper);
+      border-radius: var(--border-organic-md);
+      border: 1.2px solid rgba(78, 134, 168, 0.16);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: transform 0.25s ease;
+    }
+    .metric-card:hover {
+      transform: translateY(-3px);
+    }
+    .metric-card.indigo { border-left: 5px solid var(--pigment-indigo); }
+    .metric-card.sienna { border-left: 5px solid var(--pigment-sienna); }
+    .metric-card.sage   { border-left: 5px solid var(--pigment-sage); }
+    .metric-card.rose   { border-left: 5px solid var(--pigment-terracotta); }
+
+    .metric-num {
+      font-family: var(--font-serif);
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: var(--pigment-indigo);
+      line-height: 1.1;
+    }
+    .metric-card.sienna .metric-num { color: var(--pigment-sienna); }
+    .metric-card.sage .metric-num   { color: var(--pigment-sage); }
+    .metric-card.rose .metric-num   { color: var(--pigment-terracotta); }
+    .metric-label {
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+    .btn-watercolor {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 12px 26px;
+      border-radius: var(--border-organic-sm);
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s ease;
+    }
+    .btn-watercolor.primary {
+      background: linear-gradient(135deg, var(--pigment-indigo), var(--pigment-cerulean));
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(45, 85, 110, 0.28);
+    }
+    .btn-watercolor.primary:hover {
+      transform: translateY(-2px);
+    }
+    .btn-watercolor.secondary {
+      background: var(--pigment-sienna-light);
+      color: var(--pigment-sienna);
+      border: 1.5px solid rgba(197, 123, 56, 0.35);
+    }
+    .btn-watercolor.secondary:hover {
+      background: #F8E6D3;
+      transform: translateY(-2px);
+    }
+    .btn-watercolor.tertiary {
+      background: var(--pigment-sage-light);
+      color: var(--pigment-sage);
+      border: 1.5px solid rgba(78, 124, 101, 0.35);
+    }
+    .btn-watercolor.tertiary:hover {
+      background: #E2EFE7;
+      transform: translateY(-2px);
+    }
+
+    /* 英雄區拍立得縮圖膠卷 (Hero Photo Strip) */
+    .hero-photo-strip {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      transition: all 0.3s ease;
+    }
+    .photo-thumb-polaroid {
+      background: #fff;
+      padding: 8px 8px 16px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: var(--shadow-polaroid);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .photo-thumb-polaroid:hover {
+      transform: translateY(-5px) scale(1.03);
+      z-index: 10;
+    }
+    .photo-thumb-polaroid img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+      background: #EBE6DC;
+    }
+    .photo-thumb-caption {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      font-family: var(--font-hand);
+      color: var(--ink-secondary);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* 關鍵：若照片失效或隱藏，完全收縮不留空白 (Zero-gap graceful collapse) */
+    .img-collapsed,
+    body.hide-photos .photo-thumb-polaroid,
+    body.hide-photos .gear-card-img-wrap,
+    body.hide-photos .setup-photo-frame,
+    body.hide-photos .polaroid-item,
+    body.hide-photos .hero-photo-strip,
+    body.hide-photos .polaroid-gallery-wrap {
+      display: none !important;
+    }
+
+    /* 通用區塊樣式 */
+    .section-wrap {
+      padding: 60px 0;
+      position: relative;
+    }
+    .section-header {
+      margin-bottom: 36px;
+    }
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-hand);
+      font-size: 1.25rem;
+      font-weight: 700;
+      padding: 3px 14px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+    .section-badge.blue { background: var(--pigment-cerulean-light); color: var(--pigment-indigo); border: 1px dashed rgba(78, 134, 168, 0.4); }
+    .section-badge.amber { background: var(--pigment-sienna-light); color: var(--pigment-sienna); border: 1px dashed rgba(197, 123, 56, 0.4); }
+    .section-badge.green { background: var(--pigment-sage-light); color: var(--pigment-sage); border: 1px dashed rgba(78, 124, 101, 0.4); }
+    .section-badge.terracotta { background: var(--pigment-terracotta-light); color: var(--pigment-terracotta); border: 1px dashed rgba(184, 88, 67, 0.4); }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 2.25rem;
+      font-weight: 900;
+      color: var(--pigment-indigo);
+      line-height: 1.3;
+    }
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--ink-secondary);
+      margin-top: 8px;
+      max-width: 800px;
+    }
+
+    /* 六步驟建模心智地圖 */
+    .flow-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin: 28px 0 20px;
+    }
+    .flow-step-card {
+      background: var(--wc-paper-card);
+      border: 1.2px solid rgba(78, 134, 168, 0.18);
+      border-radius: var(--border-organic-md);
+      padding: 16px 14px;
+      box-shadow: 0 4px 12px rgba(78, 134, 168, 0.05);
+      transition: all 0.25s ease;
+    }
+    .flow-step-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--pigment-cerulean);
+    }
+    .flow-step-num {
+      font-family: var(--font-serif);
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--pigment-sienna);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .flow-step-title {
+      font-family: var(--font-serif);
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--pigment-indigo);
+      margin-bottom: 4px;
+    }
+    .flow-step-desc {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       SECTION 1: 儀器介紹
+       ========================================================================== */
+    .gear-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .gear-card {
+      background: var(--wc-paper-card);
+      border: 1.5px solid rgba(78, 134, 168, 0.18);
+      border-radius: var(--border-organic-md);
+      box-shadow: var(--shadow-watercolor);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+    .gear-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--pigment-cerulean);
+    }
+    .gear-card-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      background: #EBE6DC;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .gear-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+    .gear-card:hover .gear-card-img-wrap img {
+      transform: scale(1.05);
+    }
+    .gear-img-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.94);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-family: var(--font-serif);
+      font-weight: 600;
+      color: var(--pigment-indigo);
+      border: 1px solid rgba(78, 134, 168, 0.25);
+    }
+
+    .gear-body {
+      padding: 22px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .gear-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--pigment-sienna);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .gear-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--pigment-indigo);
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+    .gear-desc {
+      font-size: 0.94rem;
+      color: var(--ink-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .gear-spec-list {
+      list-style: none;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(78, 134, 168, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .gear-spec-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+    .gear-spec-name { color: var(--ink-muted); }
+    .gear-spec-val { font-weight: 600; color: var(--ink-primary); font-family: var(--font-serif); }
+
+    .gear-pro-tip {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: var(--pigment-sienna-light);
+      border-left: 3.5px solid var(--pigment-sienna);
+      border-radius: 4px;
+      font-size: 0.84rem;
+      color: #794916;
+      line-height: 1.5;
+    }
+
+    /* 現場佈設流程導引 */
+    .field-setup-strip {
+      margin-top: 40px;
+      background: var(--wc-paper-card);
+      border: 1.5px solid rgba(78, 134, 168, 0.2);
+      border-radius: var(--border-organic-lg);
+      padding: 30px;
+      box-shadow: var(--shadow-watercolor);
+    }
+    .setup-steps-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+      border-bottom: 1px dashed rgba(78, 134, 168, 0.2);
+      padding-bottom: 14px;
+    }
+    .btn-setup-step {
+      background: var(--wc-paper);
+      border: 1.2px solid rgba(78, 134, 168, 0.2);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.86rem;
+      font-family: var(--font-serif);
+      font-weight: 600;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-setup-step:hover,
+    .btn-setup-step.active {
+      background: var(--pigment-indigo);
+      color: #fff;
+      border-color: var(--pigment-indigo);
+    }
+
+    .setup-detail-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      align-items: center;
+    }
+    body.hide-photos .setup-detail-panel,
+    .setup-detail-panel.no-photo-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .setup-photo-frame {
+      background: #fff;
+      padding: 8px 8px 20px;
+      border-radius: 6px;
+      box-shadow: var(--shadow-polaroid);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+    }
+    .setup-photo-frame img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      background: #EBE6DC;
+    }
+    .setup-caption {
+      margin-top: 8px;
+      text-align: center;
+      font-family: var(--font-hand);
+      font-size: 1.1rem;
+      color: var(--pigment-indigo);
+    }
+
+    .setup-info-box h3 {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      color: var(--pigment-indigo);
+      margin-bottom: 8px;
+    }
+    .setup-question-quote {
+      font-size: 1.02rem;
+      font-style: italic;
+      color: var(--pigment-sienna);
+      margin-bottom: 12px;
+      padding-left: 12px;
+      border-left: 3px solid var(--pigment-sienna);
+    }
+    .setup-info-box p {
+      font-size: 0.95rem;
+      color: var(--ink-secondary);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .setup-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .setup-tag-pill {
+      font-size: 0.78rem;
+      padding: 3px 10px;
+      background: var(--pigment-cerulean-light);
+      color: var(--pigment-indigo);
+      border-radius: 12px;
+    }
+
+    /* ==========================================================================
+       SECTION 2: 原理介紹
+       ========================================================================== */
+    .principles-deck {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      margin-top: 20px;
+    }
+    @media (max-width: 860px) {
+      .principles-deck { grid-template-columns: 1fr; }
+    }
+    .principle-card {
+      background: var(--wc-paper-card);
+      border: 1.5px solid rgba(78, 134, 168, 0.2);
+      border-radius: var(--border-organic-md);
+      padding: 28px;
+      box-shadow: var(--shadow-watercolor);
+    }
+    .principle-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--pigment-indigo);
+      margin-bottom: 10px;
+    }
+    .principle-card p {
+      font-size: 0.96rem;
+      color: var(--ink-secondary);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+
+    .math-watercolor-box {
+      background: var(--wc-paper);
+      border: 1.5px dashed rgba(78, 134, 168, 0.3);
+      border-radius: var(--border-organic-sm);
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-family: var(--font-serif);
+      color: var(--ink-primary);
+    }
+    .math-formula {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--pigment-indigo);
+      text-align: center;
+      margin: 4px 0;
+    }
+    .math-note {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      margin-top: 4px;
+      text-align: center;
+    }
+
+    .key-intuition-callout {
+      background: linear-gradient(135deg, var(--pigment-sienna-light), #FDF7EF);
+      border: 1.5px solid rgba(197, 123, 56, 0.3);
+      border-radius: var(--border-organic-md);
+      padding: 22px 26px;
+      margin-top: 28px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 2rem; color: var(--pigment-sienna); line-height: 1; }
+    .callout-body h4 { font-family: var(--font-serif); font-size: 1.2rem; color: #8C4713; margin-bottom: 4px; }
+    .callout-body p { font-size: 0.94rem; color: #614022; line-height: 1.7; }
+
+    /* 走時模擬器 */
+    .simulator-panel {
+      margin-top: 36px;
+      background: var(--wc-paper-card);
+      border: 1.8px solid rgba(78, 134, 168, 0.22);
+      border-radius: var(--border-organic-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-watercolor);
+    }
+    .simulator-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .simulator-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--pigment-indigo);
+    }
+    .simulator-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+      background: var(--wc-paper);
+      padding: 18px 22px;
+      border-radius: var(--border-organic-md);
+      border: 1px solid rgba(78, 134, 168, 0.16);
+      margin-bottom: 22px;
+    }
+    .control-group { display: flex; flex-direction: column; gap: 6px; }
+    .control-label-wrap { display: flex; justify-content: space-between; font-size: 0.86rem; font-weight: 600; }
+    .control-val-badge { font-family: var(--font-serif); color: var(--pigment-indigo); background: #fff; padding: 2px 8px; border-radius: 10px; border: 1px solid rgba(78, 134, 168, 0.2); }
+    .slider-watercolor {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      background: #DCE7EE;
+      border-radius: 4px;
+      outline: none;
+    }
+    .slider-watercolor::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--pigment-cerulean);
+      cursor: pointer;
+    }
+
+    .simulator-display-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .simulator-display-grid { grid-template-columns: 1fr; }
+    }
+    .chart-svg-container {
+      background: #fff;
+      border: 1px solid rgba(78, 134, 168, 0.2);
+      border-radius: var(--border-organic-md);
+      padding: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+    .sim-stats-card {
+      background: var(--wc-paper);
+      border: 1px solid rgba(78, 134, 168, 0.16);
+      border-radius: var(--border-organic-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed rgba(78, 134, 168, 0.2);
+    }
+    .stat-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .stat-name { font-size: 0.9rem; color: var(--ink-secondary); display: flex; align-items: center; gap: 8px; }
+    .stat-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .stat-dot.direct { background: #557A69; }
+    .stat-dot.refract { background: #D69A49; }
+    .stat-num { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700; color: var(--pigment-indigo); }
+    .crossover-banner { background: var(--pigment-cerulean-light); border-radius: var(--border-organic-sm); padding: 12px 16px; font-size: 0.88rem; color: var(--pigment-indigo); }
+
+    /* ==========================================================================
+       SECTION 3: 資料分析
+       ========================================================================== */
+    .findings-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .btn-finding-tab {
+      background: var(--wc-paper-card);
+      border: 1.5px solid rgba(78, 134, 168, 0.2);
+      border-radius: var(--border-organic-sm);
+      padding: 9px 18px;
+      font-family: var(--font-serif);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-finding-tab:hover,
+    .btn-finding-tab.active {
+      background: var(--pigment-cerulean-light);
+      color: var(--pigment-indigo);
+      border-color: var(--pigment-cerulean);
+    }
+
+    .finding-content-panel {
+      background: var(--wc-paper-card);
+      border: 1.8px solid rgba(78, 134, 168, 0.2);
+      border-radius: var(--border-organic-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-watercolor);
+      display: none;
+    }
+    .finding-content-panel.active { display: block; }
+
+    .finding-two-col {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+    body.hide-photos .finding-two-col,
+    .finding-two-col.no-photo-col {
+      grid-template-columns: 1fr !important;
+    }
+    @media (max-width: 900px) {
+      .finding-two-col { grid-template-columns: 1fr; }
+    }
+    .finding-text h3 {
+      font-family: var(--font-serif);
+      font-size: 1.65rem;
+      color: var(--pigment-indigo);
+      margin-bottom: 12px;
+    }
+    .finding-text p {
+      font-size: 0.96rem;
+      color: var(--ink-secondary);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .field-chart-frame {
+      background: #fff;
+      padding: 10px;
+      border-radius: var(--border-organic-md);
+      border: 1.5px solid rgba(78, 134, 168, 0.2);
+      box-shadow: var(--shadow-watercolor);
+      cursor: pointer;
+    }
+    .field-chart-frame img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      display: block;
+      background: #EBE6DC;
+    }
+    .chart-caption-bar {
+      margin-top: 8px;
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* 12 炮點互動矩陣 */
+    .shot-matrix-box {
+      margin-top: 40px;
+      background: var(--wc-paper-card);
+      border: 1.5px solid rgba(78, 134, 168, 0.2);
+      border-radius: var(--border-organic-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-watercolor);
+    }
+    .shot-buttons-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0 24px;
+    }
+    .btn-shot-node {
+      background: var(--wc-paper);
+      border: 1.2px solid rgba(78, 134, 168, 0.25);
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-family: var(--font-serif);
+      font-weight: 700;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.2s ease;
+      min-width: 66px;
+    }
+    .btn-shot-node small { font-size: 0.72rem; font-weight: 400; color: var(--ink-muted); }
+    .btn-shot-node:hover,
+    .btn-shot-node.active {
+      background: var(--pigment-indigo);
+      color: #fff;
+      border-color: var(--pigment-indigo);
+    }
+    .btn-shot-node:hover small,
+    .btn-shot-node.active small { color: rgba(255, 255, 255, 0.85); }
+
+    .shot-info-card {
+      background: var(--wc-paper);
+      border-radius: var(--border-organic-md);
+      border: 1px solid rgba(78, 134, 168, 0.18);
+      padding: 22px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+    body.hide-photos .shot-info-card,
+    .shot-info-card.no-photo-shot {
+      grid-template-columns: 1fr !important;
+    }
+    @media (max-width: 800px) {
+      .shot-info-card { grid-template-columns: 1fr; }
+    }
+    .shot-table-clean { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .shot-table-clean th { text-align: left; padding: 7px 10px; color: var(--ink-muted); font-weight: 500; border-bottom: 1px solid rgba(78, 134, 168, 0.15); }
+    .shot-table-clean td { padding: 7px 10px; color: var(--ink-primary); font-family: var(--font-serif); border-bottom: 1px solid rgba(78, 134, 168, 0.1); }
+
+    /* 敏感度表格 */
+    .sensitivity-table-wrap { overflow-x: auto; margin-top: 14px; }
+    .sensitivity-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; background: #fff; border-radius: 8px; overflow: hidden; }
+    .sensitivity-table th, .sensitivity-table td { padding: 9px 12px; text-align: center; border: 1px solid rgba(78, 134, 168, 0.12); }
+    .sensitivity-table th { background: var(--pigment-cerulean-light); color: var(--pigment-indigo); font-family: var(--font-serif); font-weight: 700; }
+    .sensitivity-table tr.stable { background: #F2F8F5; font-weight: 600; }
+    .sensitivity-table tr.unstable { background: #FDF4F2; color: var(--ink-muted); }
+    .badge-stable { background: var(--pigment-sage); color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; }
+    .badge-unstable { background: var(--pigment-terracotta); color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; }
+
+    /* ==========================================================================
+       SECTION 4: 心得感想
+       ========================================================================== */
+    .reflection-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+      margin-top: 20px;
+    }
+    .reflection-card {
+      background: var(--wc-paper-card);
+      border: 1.5px solid rgba(78, 134, 168, 0.18);
+      border-radius: var(--border-organic-md);
+      padding: 26px 24px;
+      box-shadow: var(--shadow-watercolor);
+      transition: all 0.3s ease;
+    }
+    .reflection-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--pigment-sienna);
+    }
+    .reflection-card .stamp-icon { font-family: var(--font-hand); font-size: 2rem; color: var(--pigment-sienna); line-height: 1; margin-bottom: 6px; }
+    .reflection-card h3 { font-family: var(--font-serif); font-size: 1.3rem; color: var(--pigment-indigo); margin-bottom: 10px; line-height: 1.35; }
+    .reflection-card p { font-size: 0.94rem; color: var(--ink-secondary); line-height: 1.75; }
+
+    /* CER 架構 */
+    .cer-framework-box {
+      margin-top: 40px;
+      background: var(--wc-paper-card);
+      border: 1.8px solid rgba(78, 134, 168, 0.2);
+      border-radius: var(--border-organic-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-watercolor);
+    }
+    .cer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 20px; }
+    .cer-column { background: var(--wc-paper); border-radius: var(--border-organic-md); border: 1px solid rgba(78, 134, 168, 0.18); padding: 22px 18px; }
+    .cer-letter-badge {
+      display: inline-block; width: 36px; height: 36px; border-radius: 50%;
+      text-align: center; line-height: 36px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 900; color: #fff; margin-bottom: 10px;
+    }
+    .cer-column.c .cer-letter-badge { background: var(--pigment-cerulean); }
+    .cer-column.e .cer-letter-badge { background: var(--pigment-sienna); }
+    .cer-column.r .cer-letter-badge { background: var(--pigment-sage); }
+    .cer-col-title { font-family: var(--font-serif); font-size: 1.12rem; font-weight: 700; color: var(--pigment-indigo); margin-bottom: 6px; }
+    .cer-col-text { font-size: 0.91rem; color: var(--ink-secondary); line-height: 1.7; }
+
+    /* 水彩拍立得照片牆 */
+    .polaroid-gallery-wrap { margin-top: 40px; }
+    .polaroid-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+    .polaroid-item {
+      background: #fff;
+      padding: 10px 10px 20px;
+      border-radius: 6px;
+      box-shadow: var(--shadow-polaroid);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .polaroid-item:hover { transform: translateY(-6px) scale(1.02); z-index: 10; }
+    .polaroid-item img { width: 100%; height: 180px; object-fit: cover; border-radius: 3px; display: block; background: #EBE6DC; }
+    .polaroid-item-caption { margin-top: 10px; font-size: 0.88rem; font-family: var(--font-hand); color: var(--ink-primary); text-align: center; line-height: 1.35; }
+
+    /* 隨堂測驗 */
+    .quiz-box {
+      margin-top: 40px;
+      background: var(--wc-paper-card);
+      border: 1.8px solid rgba(78, 134, 168, 0.22);
+      border-radius: var(--border-organic-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-watercolor);
+    }
+    .quiz-question-card {
+      background: var(--wc-paper);
+      border-radius: var(--border-organic-md);
+      border: 1px solid rgba(78, 134, 168, 0.18);
+      padding: 22px;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    .quiz-q-title { font-family: var(--font-serif); font-size: 1.08rem; font-weight: 700; color: var(--pigment-indigo); margin-bottom: 12px; }
+    .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+    .quiz-opt-btn {
+      text-align: left; background: #fff; border: 1.2px solid rgba(78, 134, 168, 0.2); border-radius: 8px;
+      padding: 9px 14px; font-size: 0.9rem; color: var(--ink-secondary); cursor: pointer; transition: all 0.2s ease;
+    }
+    .quiz-opt-btn:hover { background: var(--pigment-cerulean-light); color: var(--pigment-indigo); }
+    .quiz-opt-btn.correct { background: #EAF6ED !important; border-color: var(--pigment-sage) !important; color: #27633F !important; font-weight: 600; }
+    .quiz-opt-btn.incorrect { background: #FDF0ED !important; border-color: var(--pigment-terracotta) !important; color: #8C2C16 !important; }
+    .quiz-feedback { margin-top: 10px; padding: 10px 14px; border-radius: 6px; font-size: 0.86rem; display: none; line-height: 1.5; }
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.success { background: #EEF8F1; color: #245A39; border: 1px solid #B8E2C7; }
+    .quiz-feedback.warning { background: #FCF4EE; color: #8C441A; border: 1px solid #F5D3B8; }
+
+    /* 頁尾 */
+    .watercolor-footer {
+      margin-top: 70px;
+      padding: 50px 0 35px;
+      background: var(--wc-paper-rough);
+      border-top: 2px dashed rgba(78, 134, 168, 0.25);
+    }
+    .footer-content { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; }
+    .footer-stamp { font-family: var(--font-hand); font-size: 2.2rem; color: var(--pigment-sienna); line-height: 1; }
+    .footer-title { font-family: var(--font-serif); font-size: 1.45rem; font-weight: 700; color: var(--pigment-indigo); }
+    .footer-desc { font-size: 0.92rem; color: var(--ink-secondary); max-width: 640px; line-height: 1.75; }
+
+    /* 燈箱 Modal */
+    .lightbox-modal {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(26, 38, 48, 0.85); backdrop-filter: blur(8px);
+      z-index: 2000; display: none; align-items: center; justify-content: center; padding: 24px;
+    }
+    .lightbox-modal.active { display: flex; }
+    .lightbox-content {
+      background: #fff; border-radius: var(--border-organic-md); padding: 14px 14px 20px;
+      max-width: 880px; width: 100%; position: relative;
+    }
+    .lightbox-close-btn {
+      position: absolute; top: -14px; right: -14px; width: 36px; height: 36px; border-radius: 50%;
+      background: var(--pigment-terracotta); color: #fff; border: 2px solid #fff; font-size: 1.3rem; cursor: pointer;
+    }
+    .lightbox-img { width: 100%; max-height: 70vh; object-fit: contain; border-radius: 4px; display: block; }
+    .lightbox-caption { margin-top: 12px; text-align: center; font-family: var(--font-serif); font-size: 1rem; color: var(--pigment-indigo); }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.1rem; }
+      .section-title { font-size: 1.8rem; }
+      .hero-card { padding: 28px 20px; }
+      .hero-photo-strip { grid-template-columns: repeat(3, 1fr); }
+      .photo-thumb-polaroid:nth-child(4), .photo-thumb-polaroid:nth-child(5) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部閱讀進度水彩條 -->
+  <div class="reading-progress-bar" id="readingProgress"></div>
+
+  <!-- 背景柔和水彩光暈 -->
+  <div class="watercolor-bg-splash splash-1"></div>
+  <div class="watercolor-bg-splash splash-2"></div>
+  <div class="watercolor-bg-splash splash-3"></div>
+  <div class="watercolor-bg-splash splash-4"></div>
+
+  <!-- 水彩風格導覽列 -->
+  <header class="container">
+    <nav class="watercolor-nav" id="topNav">
+      <a href="#top" class="nav-brand">
+        <span class="nav-brush-dot"></span>
+        <span class="nav-title">地底的迴響</span>
+        <span class="nav-subtitle-tag">Seismic Notes</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#instruments">儀器介紹</a></li>
+        <li><a href="#principles">原理介紹</a></li>
+        <li><a href="#analysis">資料分析</a></li>
+        <li><a href="#reflections">心得感想</a></li>
+      </ul>
+
+      <!-- 快速切換：照片顯示 / 純手繪水彩版 -->
+      <button class="photo-toggle-btn" id="photoToggleBtn" onclick="togglePhotosMode()" title="點選可在含照片模式與純淨文字版之間流暢切換">
+        <span id="photoToggleIcon">📷</span>
+        <span id="photoToggleText">顯示照片</span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         HERO 區塊：課程全景與總覽
+         ========================================================================== -->
+    <section class="hero-section" id="top">
+      <div class="container">
+        <div class="hero-card">
+          <p class="hero-kicker">地球物理野外實習 · 科學探究手繪筆記</p>
+          <h1 class="hero-title">
+            看不見的地下，<br>
+            我們如何用<span class="highlight-wash">震波聽出真相？</span>
+          </h1>
+
+          <p class="hero-desc">
+            這是一場在<strong>臺北市立大學圖書館後方草皮</strong>開展的淺層折射震測（SSS）野外實習紀錄。
+            我們布設了 <strong>46 公尺測線</strong>、插設 <strong>24 支垂直向受波器</strong>，手持 16 磅鐵鎚重擊鋼板 <strong>12 個發點</strong>，
+            完整記錄 <strong>288 道實測震波</strong>。從大地幾何擴散、雜訊極限到地下雙層速度模型，帶你用溫暖水彩的筆觸，重溫這段真實的科學建模旅程。
+          </p>
+
+          <!-- 四大核心實測指標 -->
+          <div class="hero-metrics-grid">
+            <div class="metric-card indigo">
+              <span class="metric-num">24 <small style="font-size:1.1rem;font-weight:400;">Channels</small></span>
+              <span class="metric-label">受波器站號（間距 2 m，0~46 m）</span>
+            </div>
+            <div class="metric-card sienna">
+              <span class="metric-num">12 <small style="font-size:1.1rem;font-weight:400;">Shots</small></span>
+              <span class="metric-label">人工敲擊震源（間距 4 m，0~44 m）</span>
+            </div>
+            <div class="metric-card sage">
+              <span class="metric-num">288 <small style="font-size:1.1rem;font-weight:400;">Traces</small></span>
+              <span class="metric-label">高解析實測波形（無死道記錄）</span>
+            </div>
+            <div class="metric-card rose">
+              <span class="metric-num">0.25 <small style="font-size:1.1rem;font-weight:400;">ms</small></span>
+              <span class="metric-label">採樣率（4000 Hz，0.5 秒記錄）</span>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <a href="#instruments" class="btn-watercolor primary">🌿 探索儀器系統</a>
+            <a href="#simulator" class="btn-watercolor secondary">📐 玩轉震波走時模擬器</a>
+            <a href="#analysis" class="btn-watercolor tertiary">📊 查看實測資料解密</a>
+          </div>
+
+          <!-- 精選現場照片拍立得膠卷 (支援點擊放大與無空位自適應) -->
+          <div class="hero-photo-strip" id="heroPhotoStrip">
+            <div class="photo-thumb-polaroid" onclick="openLightbox('assets/images/1000050442.jpg', '現場說明：指導老師解說整套淺層反射與折射震測儀器系統')">
+              <img src="assets/images/1000050442.jpg" alt="現場解說儀器" loading="lazy" onerror="handleImgError(this)">
+              <div class="photo-thumb-caption">現場講解與儀器概念</div>
+            </div>
+            <div class="photo-thumb-polaroid" onclick="openLightbox('assets/images/1000050453.jpg', '人工震源組件：16磅重鎚、鋼板與壓電 Trigger 觸發感測線')">
+              <img src="assets/images/1000050453.jpg" alt="震源與Trigger" loading="lazy" onerror="handleImgError(this)">
+              <div class="photo-thumb-caption">鐵鎚與 Trigger 觸發線</div>
+            </div>
+            <div class="photo-thumb-polaroid" onclick="openLightbox('assets/images/1000050457.jpg', '土壤耦合：將垂直向受波器牢固插設於測線草皮')">
+              <img src="assets/images/1000050457.jpg" alt="受波器布設" loading="lazy" onerror="handleImgError(this)">
+              <div class="photo-thumb-caption">受波器土壤耦合布設</div>
+            </div>
+            <div class="photo-thumb-polaroid" onclick="openLightbox('assets/images/1000050473.jpg', '震源激發：學生在特製鋼板上進行重複敲擊疊加')">
+              <img src="assets/images/1000050473.jpg" alt="鐵鎚敲擊鋼板" loading="lazy" onerror="handleImgError(this)">
+              <div class="photo-thumb-caption">鐵鎚敲擊鋼板疊加</div>
+            </div>
+            <div class="photo-thumb-polaroid" onclick="openLightbox('assets/images/1000050482.jpg', '波形判讀：師生齊聚電腦螢幕前即時檢視初達波訊號品質')">
+              <img src="assets/images/1000050482.jpg" alt="波形討論" loading="lazy" onerror="handleImgError(this)">
+              <div class="photo-thumb-caption">現場即時波形判讀</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 六步驟科學建模思維 -->
+    <section class="container" style="padding: 10px 0 30px;">
+      <div style="text-align: center; max-width: 720px; margin: 0 auto 20px;">
+        <span class="section-badge blue">THE SCIENTIFIC INQUIRY</span>
+        <h2 style="font-family: var(--font-serif); font-size: 1.85rem; color: var(--pigment-indigo);">六步驟科學建模思維歷程</h2>
+        <p style="font-size: 0.95rem; color: var(--ink-secondary);">這不是一場機械式的器材操作，而是一段嚴謹的證據轉譯與模型驗證歷程。</p>
+      </div>
+
+      <div class="flow-steps-grid">
+        <div class="flow-step-card">
+          <div class="flow-step-num">01</div>
+          <div class="flow-step-title">提出問題</div>
+          <div class="flow-step-desc">地表看不到，地底是否有速度不同的地質構造？</div>
+        </div>
+        <div class="flow-step-card">
+          <div class="flow-step-num">02</div>
+          <div class="flow-step-title">設計觀測</div>
+          <div class="flow-step-desc">敲擊震源＋24 通道受波器直線陣列排列。</div>
+        </div>
+        <div class="flow-step-card">
+          <div class="flow-step-num">03</div>
+          <div class="flow-step-title">取得證據</div>
+          <div class="flow-step-desc">精確量測幾何距離與各通道波形初達時間。</div>
+        </div>
+        <div class="flow-step-card">
+          <div class="flow-step-num">04</div>
+          <div class="flow-step-title">找出規律</div>
+          <div class="flow-step-desc">繪製 t-x 走時曲線，觀察斜率與波速的關係。</div>
+        </div>
+        <div class="flow-step-card">
+          <div class="flow-step-num">05</div>
+          <div class="flow-step-title">建立模型</div>
+          <div class="flow-step-desc">運用臨界折射定律，反演地層深度與波速。</div>
+        </div>
+        <div class="flow-step-card">
+          <div class="flow-step-num">06</div>
+          <div class="flow-step-title">檢驗修正</div>
+          <div class="flow-step-desc">利用 12 炮多角度互換時間與敏感度交叉驗證。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 1: 儀器介紹 (INSTRUMENTS & FIELD GEAR)
+         ========================================================================== -->
+    <section class="section-wrap" id="instruments">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge blue">FIELDWORK INSTRUMENTS</span>
+          <h2 class="section-title">一、儀器介紹 ── 聆聽地底的感測神經系統</h2>
+          <p class="section-subtitle">
+            在野外地質探勘中，每一筆可信的訊號都仰賴精密儀器與地面環境的良好耦合。以下是本次實習四大關鍵設備。
+          </p>
+        </div>
+
+        <!-- 四大儀器卡片 -->
+        <div class="gear-grid">
+          <!-- 儀器 1: DAS-1 震測儀 -->
+          <div class="gear-card">
+            <div class="gear-card-img-wrap" onclick="openLightbox('assets/images/1000050452.jpg', 'Geometrics DAS-1 NZ 24 通道數位震測主機：野外資料擷取與即時轉換的核心大腦')">
+              <img src="assets/images/1000050452.jpg" alt="DAS-1 震測儀" loading="lazy" onerror="handleImgError(this)">
+              <span class="gear-img-badge">核心大腦</span>
+            </div>
+            <div class="gear-body">
+              <span class="gear-tag">Acquisition Seismograph</span>
+              <h3 class="gear-title">DAS-1 24 通道數位震測儀</h3>
+              <p class="gear-desc">
+                由 Geometrics 製造的專業級震測主機。負責同步接收 24 支受波器回傳的微弱類比電壓信號，以 0.25 ms 超高解析度進行 A/D 數位轉換，並與野外工作筆電即時連線。
+              </p>
+              <ul class="gear-spec-list">
+                <li class="gear-spec-item"><span class="gear-spec-name">通道數量</span><span class="gear-spec-val">NZ 24 Channels</span></li>
+                <li class="gear-spec-item"><span class="gear-spec-name">採樣率</span><span class="gear-spec-val">4 kHz (0.25 ms)</span></li>
+                <li class="gear-spec-item"><span class="gear-spec-name">記錄時間</span><span class="gear-spec-val">0.50 s (2000 點/道)</span></li>
+                <li class="gear-spec-item"><span class="gear-spec-name">供電需求</span><span class="gear-spec-val">12V DC 深循環電瓶</span></li>
+              </ul>
+              <div class="gear-pro-tip">
+                <strong>野外實務要訣：</strong> 現場必須關閉所有未經校正的濾波器（Low Cut / High Cut / Notch 均設為 OFF），確保原始波場特徵完整保留。
+              </div>
+            </div>
+          </div>
+
+          <!-- 儀器 2: 鐵鎚、Trigger 開關與鋼板 -->
+          <div class="gear-card">
+            <div class="gear-card-img-wrap" onclick="openLightbox('assets/images/1000050453.jpg', '人工震源系統：特製加重鐵鎚、Trigger 感測開關與厚實高強度耦合鋼板')">
+              <img src="assets/images/1000050453.jpg" alt="震源與Trigger" loading="lazy" onerror="handleImgError(this)">
+              <span class="gear-img-badge">震源觸發</span>
+            </div>
+            <div class="gear-body">
+              <span class="gear-tag">Seismic Source & Trigger</span>
+              <h3 class="gear-title">鐵鎚震源、鋼板與 Trigger</h3>
+              <p class="gear-desc">
+                以 16 磅鐵鎚重擊放置在草皮上的特製鋼板產生震波。鐵鎚頸部裝有壓電觸發開關（Trigger），在擊中金屬板瞬間閉合導通，回傳脈衝告訴震測儀：<strong>敲擊瞬間就是物理時間 t = 0</strong>。
+              </p>
+              <ul class="gear-spec-list">
+                <li class="gear-spec-item"><span class="gear-spec-name">震源種類</span><span class="gear-spec-val">人工敲擊震源</span></li>
+                <li class="gear-spec-item"><span class="gear-spec-name">時間基準</span><span class="gear-spec-val">壓電式開關 (t = 0)</span></li>
+                <li class="gear-spec-item"><span class="gear-spec-name">介面鋼板</span><span class="gear-spec-val">消除草皮緩衝、傳遞衝量</span></li>
+                <li class="gear-spec-item"><span class="gear-spec-name">疊加次數</span><span class="gear-spec-val">同點重複敲擊 3~15 次</span></li>
+              </ul>
+              <div class="gear-pro-tip">
+                <strong>野外實務要訣：</strong> 利用「同發點垂直疊加（Stacking）」技術，讓隨機環境雜訊互相抵消，使有效訊號線性增強，顯著提升訊噪比！
+              </div>
+            </div>
+          </div>
+
+          <!-- 儀器 3: 垂直向受波器 (Geophones) -->
+          <div class="gear-card">
+            <div class="gear-card-img-wrap" onclick="openLightbox('assets/images/1000050457.jpg', '垂直向受波器（Geophone）：內部彈簧懸掛線圈，感測地表微小垂直振動')">
+              <img src="assets/images/1000050457.jpg" alt="垂直受波器" loading="lazy" onerror="handleImgError(this)">
+              <span class="gear-img-badge">大地聽診器</span>
+            </div>
+            <div class="gear-body">
+              <span class="gear-tag">Seismic Sensor (Geophone)</span>
+              <h3 class="gear-title">垂直向受波器 (Geophones)</h3>
+              <p class="gear-desc">
+                扮演大地的「聽診器」。受波器內部由永久磁鐵與彈簧懸掛的線圈組成，當壓縮波（P 波）從地底垂直傳抵地表時，線圈相對運動產生感應電壓，靈敏度極高。
+              </p>
+              <ul class="gear-spec-list">
+                <li class="gear-spec-item"><span class="gear-spec-name">布設總數</span><span class="gear-spec-val">24 支（G1 ~ G24）</span></li>
+                <li class="gear-spec-item"><span class="gear-spec-name">測站間距</span><span class="gear-spec-val">2.0 公尺</span></li>
+                <li class="gear-spec-item"><span class="gear-spec-name">測線展距</span><span class="gear-spec-val">0 至 46 公尺</span></li>
+                <li class="gear-spec-item"><span class="gear-spec-name">感測方向</span><span class="gear-spec-val">垂直分量 (Vertical P-wave)</span></li>
+              </ul>
+              <div class="gear-pro-tip">
+                <strong>野外實務要訣：</strong> 受波器長金屬尖腳必須垂直且「牢固」插進泥土裡，若插在鬆動草根上，高頻震波會迅速衰減，導致初達波難以辨識。
+              </div>
+            </div>
+          </div>
+
+          <!-- 儀器 4: 多芯電纜線與資料傳輸系統 -->
+          <div class="gear-card">
+            <div class="gear-card-img-wrap" onclick="openLightbox('assets/images/1000050468.jpg', '訊號電纜與完整量測系統整合：24 通道 Takeouts 依序與受波器、震測主機、筆電相連')">
+              <img src="assets/images/1000050468.jpg" alt="訊號電纜與系統" loading="lazy" onerror="handleImgError(this)">
+              <span class="gear-img-badge">傳輸神經</span>
+            </div>
+            <div class="gear-body">
+              <span class="gear-tag">Takeout Cable & System Integration</span>
+              <h3 class="gear-title">訊號電纜與資料溯源</h3>
+              <p class="gear-desc">
+                重型多芯訊號電纜（Takeout Cable）沿測線鋪設，其上每隔 2 公尺有一個夾具接頭。學生必須嚴謹核對現場座標與接頭編號，確保空間幾何與儀器 Channel 完全吻合。
+              </p>
+              <ul class="gear-spec-list">
+                <li class="gear-spec-item"><span class="gear-spec-name">測線方向</span><span class="gear-spec-val">由北向南（North to South）</span></li>
+                <li class="gear-spec-item"><span class="gear-spec-name">接頭規格</span><span class="gear-spec-val">24 個防水彈簧夾</span></li>
+                <li class="gear-spec-item"><span class="gear-spec-name">資料溯源</span><span class="gear-spec-val">Channel 1 = 0m, 24 = 46m</span></li>
+                <li class="gear-spec-item"><span class="gear-spec-name">輸出格式</span><span class="gear-spec-val">SEG-2 原始檔 / SEG-Y 標準檔</span></li>
+              </ul>
+              <div class="gear-pro-tip">
+                <strong>野外實務要訣：</strong> 電纜夾頭極易氧化或沾染泥砂。若有一處短路或混淆，將導致整炮資料道序錯亂，野外每一步都必須落實雙人覆核！
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 現場作業流程導引 -->
+        <div class="field-setup-strip">
+          <div style="margin-bottom: 16px;">
+            <span class="section-badge amber">STEP-BY-STEP WORKFLOW</span>
+            <h3 style="font-family:var(--font-serif); font-size:1.45rem; color:var(--pigment-indigo);">實地探究流程精選</h3>
+            <p style="font-size:0.92rem; color:var(--ink-secondary);">點選下方按鈕，切換檢視從拉線、插設、敲擊到資料即時驗證的現場紀實：</p>
+          </div>
+
+          <div class="setup-steps-nav" id="setupStepsNav">
+            <button class="btn-setup-step active" onclick="switchSetupStep(0)">01. 建立測線基準</button>
+            <button class="btn-setup-step" onclick="switchSetupStep(1)">02. 受波器精準布設</button>
+            <button class="btn-setup-step" onclick="switchSetupStep(2)">03. 電纜對位與接線</button>
+            <button class="btn-setup-step" onclick="switchSetupStep(3)">04. 系統整測與通訊</button>
+            <button class="btn-setup-step" onclick="switchSetupStep(4)">05. 重複敲擊與疊加</button>
+            <button class="btn-setup-step" onclick="switchSetupStep(5)">06. 即時波形診斷</button>
+          </div>
+
+          <div class="setup-detail-panel" id="setupDetailPanel">
+            <!-- 由 JS 動態填入 -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 2: 原理介紹 (PRINCIPLES & SNELL'S LAW)
+         ========================================================================== -->
+    <section class="section-wrap" id="principles">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge amber">PHYSICAL FOUNDATIONS</span>
+          <h2 class="section-title">二、原理介紹 ── 震波折射與地下速度解碼</h2>
+          <p class="section-subtitle">
+            為什麼地底下的構造，可以在地表僅憑敲擊聲與微秒計的時間差推算出來？關鍵就在於斯乃爾定律與兩層速度競賽。
+          </p>
+        </div>
+
+        <div class="principles-deck">
+          <!-- 原理卡片 1 -->
+          <div class="principle-card">
+            <h3>「走得最短，不一定最早到」</h3>
+            <p>
+              當鐵鎚敲擊地表時，震波向四周擴散。沿地表以表層速度 $V_1$ 直接傳播至受波器的波，稱為<strong>直達波（Direct Wave）</strong>。它的路徑最短，在近距離時永遠是最早抵達的信號。
+            </p>
+            <p>
+              然而，如果地下存在速度更快的高速層（$V_2 > V_1$），部分斜向傳入地底的波，在高速地層界面以 $V_2$ 高速飛馳，並持續將折射頭波傳回地表。
+            </p>
+            <div class="math-watercolor-box">
+              <div class="math-formula">直達波走時：t<sub>d</sub> = x / V<sub>1</sub></div>
+              <div class="math-note">在 t–x 走時圖上是一條穿過原點的直線，斜率為 1 / V₁</div>
+            </div>
+          </div>
+
+          <!-- 原理卡片 2 -->
+          <div class="principle-card">
+            <h3>斯乃爾定律與臨界折射 (Critical Angle)</h3>
+            <p>
+              根據光學與聲學共通的斯乃爾定律（Snell's Law）：$\frac{\sin \theta_1}{V_1} = \frac{\sin \theta_2}{V_2}$。當入射角增大至某一角度 $\theta_c$ 時，折射角達到 $90^\circ$，波沿界面平行滑行，這個角度稱為<strong>臨界角（Critical Angle）</strong>。
+            </p>
+            <p>
+              滑行波沿界面傳播的同時，會像船尾水波一樣，以臨界角 $\theta_c$ 不斷將能量向地表折射回傳（Head Wave），形成<strong>折射波（Refracted Wave）</strong>。
+            </p>
+            <div class="math-watercolor-box">
+              <div class="math-formula">臨界角：sin(θ<sub>c</sub>) = V<sub>1</sub> / V<sub>2</sub></div>
+              <div class="math-formula" style="margin-top:4px;">折射波走時：t<sub>r</sub> = t<sub>i</sub> + x / V<sub>2</sub></div>
+              <div class="math-note">截距時間 t<sub>i</sub> = 2h·cos(θ<sub>c</sub>) / V₁</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-intuition-callout">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <h4>高速公路的生活化直覺譬喻</h4>
+            <p>
+              想像你要從甲地到乙地：若距離只有 50 公尺，走平面市區道路（$V_1$ 直達波）最快到達；但如果距離長達 30 公里，即使先開車 3 公里交流道繞路開上國道高速公路（$V_2$ 折射波），因為時速高達 100 km/h，抵達終點的時間反而遠比全程塞在市區道路提早得多！
+              這段直達波與折射波同時抵達的臨界分界點，就是<strong>交錯距離（Crossover Distance, $x_c$）</strong>。
+            </p>
+          </div>
+        </div>
+
+        <!-- 走時模擬器 (Simulator Panel) -->
+        <div class="simulator-panel" id="simulator">
+          <div class="simulator-header">
+            <div>
+              <span class="section-badge green">INTERACTIVE LAB</span>
+              <h3 class="simulator-title">兩層介質震波走時與射線路徑互動模擬器</h3>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin-top:4px;">隨意拖曳滑桿，即時觀察表層速度 $V_1$、高速下層 $V_2$ 與界面深度 $h$ 對 $t-x$ 走時曲線帶來的動態變化：</p>
+            </div>
+            <div style="font-family: var(--font-hand); font-size: 1.25rem; color: var(--pigment-sienna);">
+              ✎ 手繪動態幾何演算
+            </div>
+          </div>
+
+          <div class="simulator-controls">
+            <div class="control-group">
+              <div class="control-label-wrap">
+                <span>表層波速 (V₁)</span>
+                <span class="control-val-badge" id="v1Label">300 m/s</span>
+              </div>
+              <input type="range" class="slider-watercolor" id="v1Slider" min="200" max="600" step="10" value="300">
+            </div>
+
+            <div class="control-group">
+              <div class="control-label-wrap">
+                <span>下層高速 (V₂)</span>
+                <span class="control-val-badge" id="v2Label">900 m/s</span>
+              </div>
+              <input type="range" class="slider-watercolor" id="v2Slider" min="500" max="1600" step="20" value="900">
+            </div>
+
+            <div class="control-group">
+              <div class="control-label-wrap">
+                <span>地層深度 (h)</span>
+                <span class="control-val-badge" id="hLabel">2.5 m</span>
+              </div>
+              <input type="range" class="slider-watercolor" id="hSlider" min="1.0" max="8.0" step="0.2" value="2.5">
+            </div>
+
+            <div class="control-group">
+              <div class="control-label-wrap">
+                <span>觀測支距 (x)</span>
+                <span class="control-val-badge" id="xLabel">24.0 m</span>
+              </div>
+              <input type="range" class="slider-watercolor" id="xSlider" min="0" max="50" step="1" value="24">
+            </div>
+          </div>
+
+          <div class="simulator-display-grid">
+            <div class="chart-svg-container">
+              <svg id="simSvgChart" viewBox="0 0 540 320" width="100%" height="320"></svg>
+            </div>
+
+            <div class="sim-stats-card">
+              <div class="stat-row">
+                <span class="stat-name"><span class="stat-dot direct"></span>直達波走時 (t<sub>d</sub>)</span>
+                <span class="stat-num" id="statTd">80.0 ms</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name"><span class="stat-dot refract"></span>折射波走時 (t<sub>r</sub>)</span>
+                <span class="stat-num" id="statTr">42.4 ms</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">誰先抵達 (First Arrival)？</span>
+                <span class="stat-num" id="statWinner" style="color:var(--pigment-terracotta);">折射波領先！</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">臨界角 (θ<sub>c</sub>)</span>
+                <span class="stat-num" id="statCritAngle">19.5°</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-name">交錯距離 (Crossover x<sub>c</sub>)</span>
+                <span class="stat-num" id="statXc">6.1 m</span>
+              </div>
+              <div class="crossover-banner" id="crossoverSummary">
+                當支距小於 6.1 m 時直達波先到；超過 6.1 m 後折射波後發先至！
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 3: 資料分析 (DATA ANALYSIS & FINDINGS)
+         ========================================================================== -->
+    <section class="section-wrap" id="analysis">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge green">DATA ANALYSIS & GROUND TRUTH</span>
+          <h2 class="section-title">三、資料分析 ── 288 道實測訊號的三大真實發現</h2>
+          <p class="section-subtitle">
+            科學不會自動吐出標準答案。當我們用 Python ObsPy 深入分析 202610_UTELS 的 288 道波形時，我們發現了真實野外與教科書的巨大差異。
+          </p>
+        </div>
+
+        <div class="findings-nav">
+          <button class="btn-finding-tab active" onclick="switchFindingTab(0)">發現一：30 公尺的物理極限 (訊噪比)</button>
+          <button class="btn-finding-tab" onclick="switchFindingTab(1)">發現二：初達波視速度確實變快 (t-x 圖)</button>
+          <button class="btn-finding-tab" onclick="switchFindingTab(2)">發現三：演算法盲區 (敏感度檢驗)</button>
+        </div>
+
+        <!-- 發現一 -->
+        <div class="finding-content-panel active" id="findingPanel0">
+          <div class="finding-two-col">
+            <div class="finding-text">
+              <span class="section-badge blue" style="font-size:0.95rem;">FINDING 01</span>
+              <h3>訊號在 30 公尺之外，就輸給環境雜訊了！</h3>
+              <p>
+                教科書中的測線似乎可以無限延伸，但野外實作中<strong>鐵鎚人工敲擊的能量是有限的</strong>。
+                我們在 40~400 Hz 零相位濾波後，比對波場初期訊號與末端背景雜訊（0.4~0.5 s 視窗），計算全部 288 道的訊噪比（SNR）。
+              </p>
+              <p>
+                結果顯示：近支距訊噪比可達 50~65 dB，極為乾淨；但隨著幾何擴散與地層吸收，<strong>在約 30 公尺處中位 SNR 迅速跌破 12 dB 可用門檻</strong>。
+                超過 30 公尺的訊號已埋在環境雜訊中。這解釋了為什麼本次實習的反演必須聚焦在測線中段，而不是強行套用全部 46 公尺。
+              </p>
+              <div style="display:flex; gap:16px; margin-top:16px;">
+                <div style="background:var(--wc-paper); padding:10px 16px; border-radius:8px; border-left:4px solid var(--pigment-indigo);">
+                  <div style="font-family:var(--font-serif); font-size:1.3rem; font-weight:700; color:var(--pigment-indigo);">206 道</div>
+                  <div style="font-size:0.8rem; color:var(--ink-muted);">SNR ≥ 25 dB 可用道 (72%)</div>
+                </div>
+                <div style="background:var(--wc-paper); padding:10px 16px; border-radius:8px; border-left:4px solid var(--pigment-terracotta);">
+                  <div style="font-family:var(--font-serif); font-size:1.3rem; font-weight:700; color:var(--pigment-terracotta);">~30 m</div>
+                  <div style="font-size:0.8rem; color:var(--ink-muted);">人力鐵鎚有效探測極限</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="field-chart-frame" onclick="openLightbox('assets/charts/chart1_snr_vs_offset.png', '實測訊噪比（SNR）隨支距變化分布圖：點出 30m 雜訊門檻與訊號衰減曲線')">
+                <img src="assets/charts/chart1_snr_vs_offset.png" alt="SNR隨支距變化" loading="lazy" onerror="handleImgError(this)">
+                <div class="chart-caption-bar">點擊放大檢視：實測 SNR 隨支距衰減散佈圖</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 發現二 -->
+        <div class="finding-content-panel" id="findingPanel1">
+          <div class="finding-two-col">
+            <div class="finding-text">
+              <span class="section-badge amber" style="font-size:0.95rem;">FINDING 02</span>
+              <h3>單一速度解釋不了！初達波視速度確實變快</h3>
+              <p>
+                我們將 173 道高品質自動挑選初達波（AIC 演算法，SNR ≥ 30 dB）投影在同一張綜合 $t-x$ 走時圖上。
+                若強行用單一條直線擬合，得到平均速度約 <strong>470 m/s</strong>，但殘差 RMS 高達 <strong>11.1 ms</strong> —— 這證明單一層均勻地底無法合理解釋這組數據！
+              </p>
+              <p>
+                當我們依照支距分組統計中位到時，發現驚人的物理特徵：在 <strong>支距 8 ~ 14 公尺處，視速度顯著上升並收斂在 533 ~ 578 m/s</strong>。
+                斜率明顯變緩（斜率為 $1/v$，波速越快斜率越平緩），直接證明了地底深處確實存在高波速的折射地層！
+              </p>
+              <div style="background:var(--wc-paper); padding:12px 16px; border-radius:8px; border:1px dashed rgba(197, 123, 56, 0.4); margin-top:12px;">
+                <strong style="color:var(--pigment-sienna);">8~14 m 穩定折射段：</strong> 視速度落在 <strong>533 至 578 m/s</strong>，走時殘差極小，為地下速度模型提供了堅實的下層證據。
+              </div>
+            </div>
+            <div>
+              <div class="field-chart-frame" onclick="openLightbox('assets/charts/chart2_firstarrival_tx.png', '初達波走時與支距關係圖（t-x plot）：展示實測挑選點與 8~14m 穩定視速度段')">
+                <img src="assets/charts/chart2_firstarrival_tx.png" alt="t-x 走時曲線圖" loading="lazy" onerror="handleImgError(this)">
+                <div class="chart-caption-bar">點擊放大檢視：實測 173 道初達波 t–x 擬合走時圖</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 發現三 -->
+        <div class="finding-content-panel" id="findingPanel2">
+          <div class="finding-two-col">
+            <div class="finding-text">
+              <span class="section-badge terracotta" style="font-size:0.95rem;">FINDING 03</span>
+              <h3>演算法的陷阱：為什麼自動挑選拿不到 V₁？</h3>
+              <p>
+                在沒有做「穩定度檢驗」之前，數據看起來像「速度從 300 m/s 漸增到 580 m/s」。
+                但當我們將挑選器的視窗下限從 160 m/s 掃動到 300 m/s 時，真相大白：<strong>小於 8 公尺的近支距數字隨參數劇烈跳動高達 55% ~ 88%</strong>！
+              </p>
+              <p>
+                原來，近支距的數值完全是搜尋視窗設定的產物，不是地底真實速度。更關鍵的是，近地表能量最強的是視速度僅約 <strong>160 m/s 的表面波（Ground Roll）</strong>，自動程式在近端容易被表面波誤導！
+              </p>
+              <p>
+                <strong>這就是為什麼本課程刻意不公佈標準答案</strong>：程式只穩穩拿到了下層折射段（533~578 m/s），而近支距的 $V_1$ 必須留給學生在螢幕前親自「逐道人工挑選」。這不是程式缺陷，而是地球物理探勘的真實面貌！
+              </p>
+            </div>
+            <div>
+              <div class="sensitivity-table-wrap">
+                <table class="sensitivity-table">
+                  <thead>
+                    <tr>
+                      <th>支距 (m)</th>
+                      <th>視速度 (m/s)</th>
+                      <th>參數變動率</th>
+                      <th>可靠度判定</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="unstable"><td>2 m</td><td>320</td><td>67%</td><td><span class="badge-unstable">視窗偽影</span></td></tr>
+                    <tr class="unstable"><td>4 m</td><td>311</td><td>55%</td><td><span class="badge-unstable">視窗偽影</span></td></tr>
+                    <tr class="unstable"><td>6 m</td><td>358</td><td>88%</td><td><span class="badge-unstable">視窗偽影</span></td></tr>
+                    <tr class="stable"><td>8 m</td><td>547</td><td>4%</td><td><span class="badge-stable">穩定可採信</span></td></tr>
+                    <tr class="stable"><td>10 m</td><td>533</td><td>4%</td><td><span class="badge-stable">穩定可採信</span></td></tr>
+                    <tr class="stable"><td>12 m</td><td>578</td><td>2%</td><td><span class="badge-stable">穩定可採信</span></td></tr>
+                    <tr class="stable"><td>14 m</td><td>571</td><td>9%</td><td><span class="badge-stable">穩定可採信</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12 炮點互動矩陣 -->
+        <div class="shot-matrix-box">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
+            <div>
+              <span class="section-badge amber">SHOT GATHER MATRIX</span>
+              <h3 style="font-family:var(--font-serif); font-size:1.55rem; color:var(--pigment-indigo);">12 個敲擊發點（Shot 1 ~ 12）現場紀錄儀表板</h3>
+              <p style="font-size:0.92rem; color:var(--ink-secondary);">點選下方各發點按鈕，檢視各炮在測線上的位置、重複敲擊疊加次數與現場記錄：</p>
+            </div>
+          </div>
+
+          <div class="shot-buttons-row" id="shotButtonsRow"></div>
+          <div class="shot-info-card" id="shotInfoCard"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 4: 心得感想 (REFLECTIONS & TAKEAWAYS)
+         ========================================================================== -->
+    <section class="section-wrap" id="reflections">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge terracotta">FIELDWORK REFLECTIONS</span>
+          <h2 class="section-title">四、心得感想 ── 從黑盒子到真實科學的思維躍遷</h2>
+          <p class="section-subtitle">
+            走過豔陽下的測線拉設、重鎚敲擊的臂力考驗與電腦前的數據辨證，這門課留給我們的，遠比幾組速度公式更深遠。
+          </p>
+        </div>
+
+        <div class="reflection-cards-grid">
+          <div class="reflection-card">
+            <div class="stamp-icon">①</div>
+            <h3>告別「黑盒子」，洞悉訊號從何而來</h3>
+            <p>
+              在教室看軟體跑模型，很容易把儀器當成「自動吐出地質剖面」的神奇黑盒子。直到親手把 24 支受波器插進泥土、鎖緊每個電纜接頭、搞懂 Trigger 閉合瞬間就是 $t=0$，我們才明白：如果前端的物理耦合做不好，後端的任何複雜反演演算法都只是在處理垃圾雜訊。
+            </p>
+          </div>
+
+          <div class="reflection-card">
+            <div class="stamp-icon">②</div>
+            <h3>科學不是直接「看見」，而是用證據建構模型</h3>
+            <p>
+              人類不可能挖開地球所有角落。地球物理學的核心浪漫，就在於我們站在地表輕輕一敲，藉由震波以毫秒計的微小時間差，透過斯乃爾折射定律，反推出數公尺乃至數百公里深的地下地層。科學的偉大不在於肉眼看見，而在於能用具備可驗證性的邏輯與證據，建立解釋不可見世界的模型。
+            </p>
+          </div>
+
+          <div class="reflection-card">
+            <div class="stamp-icon">③</div>
+            <h3>擁抱真實野外的不完美：雜訊與極限的教育</h3>
+            <p>
+              課本的波形永遠乾淨俐落，而野外的 288 道波形卻充斥著 30 公尺訊噪比衰減、表面波干擾、以及近支距演算法的參數陷阱。當我們發現「程式自動挑選出的 300 m/s 其實是視窗偽影」時，那種震撼是課堂上學不到的。學會質疑演算法、進行敏感度測試，才是真正科研工作者應有的批判性思維。
+            </p>
+          </div>
+
+          <div class="reflection-card">
+            <div class="stamp-icon">④</div>
+            <h3>團隊合作與野外紀律的重量</h3>
+            <p>
+              20 位同學分工合作：記錄員、放線員、插感測器、揮鐵鎚、控制主機。只要一個人把第 12 道插到第 13 道，整炮資料的幾何座標就全盤報銷。在烈日下維持專注、落實「雙人互檢」與「互換時間檢驗」，這份團隊紀律是將課本知識化為野外實戰力最寶貴的養分。
+            </p>
+          </div>
+        </div>
+
+        <!-- CER 架構 -->
+        <div class="cer-framework-box">
+          <h3 style="font-family:var(--font-serif); font-size:1.6rem; color:var(--pigment-indigo); margin-bottom:8px;">
+            CER 科學論證框架：如何將觀測轉化為堅固的解釋？
+          </h3>
+          <p style="font-size:0.94rem; color:var(--ink-secondary);">在實習期末報告中，我們不只是列出數字，而是以科學辯護的三大支柱陳述結論：</p>
+
+          <div class="cer-grid">
+            <div class="cer-column c">
+              <span class="cer-letter-badge">C</span>
+              <h4 class="cer-col-title">Claim 主張</h4>
+              <p class="cer-col-text">
+                臺北市立大學圖書館後方地下介質<strong>並非單一均勻構造</strong>，而是至少存在兩層波速具有顯著差異的近地表地層。
+              </p>
+            </div>
+
+            <div class="cer-column e">
+              <span class="cer-letter-badge">E</span>
+              <h4 class="cer-col-title">Evidence 證據</h4>
+              <p class="cer-col-text">
+                實測 $t-x$ 走時曲線在支距 8~14 公尺處呈現斜率明顯轉折，視速度收斂在 <strong>533 至 578 m/s</strong>；且 35 組互換時間中位差僅 1.5 ms。
+              </p>
+            </div>
+
+            <div class="cer-column r">
+              <span class="cer-letter-badge">R</span>
+              <h4 class="cer-col-title">Reasoning 推理</h4>
+              <p class="cer-col-text">
+                $t-x$ 圖的斜率為 $1/v$。根據斯乃爾定律，折射頭波在遠距離能超越直達波提早抵達，必然代表下層波速大於表層波速，折射波支配了遠端初達波場。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 水彩拍立得照片牆 -->
+        <div class="polaroid-gallery-wrap">
+          <div style="margin-bottom: 18px;">
+            <span class="section-badge blue">FIELD SNAPSHOTS</span>
+            <h3 style="font-family: var(--font-serif); font-size: 1.45rem; color: var(--pigment-indigo);">實習現場水彩拍立得隨手拍</h3>
+          </div>
+
+          <div class="polaroid-gallery-grid">
+            <div class="polaroid-item" onclick="openLightbox('assets/images/1000050455.jpg', '以皮尺建立測線：從 0 公尺拉設至 46 公尺，定出絕對空間座標')">
+              <img src="assets/images/1000050455.jpg" alt="皮尺拉線" loading="lazy" onerror="handleImgError(this)">
+              <div class="polaroid-item-caption">建立測線空間距離基準</div>
+            </div>
+
+            <div class="polaroid-item" onclick="openLightbox('assets/images/1000050463.jpg', '小心翼翼連接受波器與電纜夾具，確保金屬觸點毫無泥土阻抗')">
+              <img src="assets/images/1000050463.jpg" alt="連接受波器" loading="lazy" onerror="handleImgError(this)">
+              <div class="polaroid-item-caption">受波器與電纜接頭對位</div>
+            </div>
+
+            <div class="polaroid-item" onclick="openLightbox('assets/images/1000050474.jpg', '講解重複敲擊疊加原理：同相位相加，隨機雜訊抵消')">
+              <img src="assets/images/1000050474.jpg" alt="疊加教學" loading="lazy" onerror="handleImgError(this)">
+              <div class="polaroid-item-caption">疊加提升訊噪比的奧祕</div>
+            </div>
+
+            <div class="polaroid-item" onclick="openLightbox('assets/images/1000050516.jpg', 'Shot 8（28m）現場量測：在測線中後段頂著太陽持續施作')">
+              <img src="assets/images/1000050516.jpg" alt="Shot 8 施測" loading="lazy" onerror="handleImgError(this)">
+              <div class="polaroid-item-caption">Shot 8 (28m) 敲擊施測</div>
+            </div>
+
+            <div class="polaroid-item" onclick="openLightbox('assets/images/1000050523.jpg', 'Shot 10（36m）敲擊完成：專注盯著電腦波形即時回饋')">
+              <img src="assets/images/1000050523.jpg" alt="Shot 10 施測" loading="lazy" onerror="handleImgError(this)">
+              <div class="polaroid-item-caption">Shot 10 (36m) 穩定資料</div>
+            </div>
+
+            <div class="polaroid-item" onclick="openLightbox('assets/images/1000050539.jpg', '場地復原與器材清點：科學探究結束後，將美麗的校園草坪恢復原貌')">
+              <img src="assets/images/1000050539.jpg" alt="場地復原" loading="lazy" onerror="handleImgError(this)">
+              <div class="polaroid-item-caption">場地回復與器材清點歸位</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 隨堂互動測驗 -->
+        <div class="quiz-box">
+          <div style="margin-bottom: 18px;">
+            <span class="section-badge amber">TEST YOUR UNDERSTANDING</span>
+            <h3 style="font-family:var(--font-serif); font-size:1.5rem; color:var(--pigment-indigo);">隨堂知識微測驗 ── 檢驗你的地球物理直覺！</h3>
+          </div>
+
+          <div class="quiz-question-card">
+            <div class="quiz-q-title">Q1. 為什麼折射波（走下層較長路徑）在遠距離反而能比直達波先抵達？</div>
+            <div class="quiz-options">
+              <button class="quiz-opt-btn" onclick="checkQuiz(this, false, 'q1', '直達波與折射波都是由同一把鐵鎚激發的，起始波形振幅相同喔！')">A. 因為折射波的能量強度比直達波高出許多</button>
+              <button class="quiz-opt-btn" onclick="checkQuiz(this, true, 'q1', '答對了！下層波速 V₂ 顯著高於表層 V₁，在遠距離時，走高速層節省的時間足以彌補上下繞道的時間！')">B. 因為地下下層波速 V₂ 大於上層 V₁，高速傳播節省的時間彌補了路徑長度</button>
+              <button class="quiz-opt-btn" onclick="checkQuiz(this, false, 'q1', '受波器對兩者一視同仁，都感測地表的垂直震動。')">C. 因為受波器只對折射波有感應反應</button>
+            </div>
+            <div class="quiz-feedback" id="q1Feedback"></div>
+          </div>
+
+          <div class="quiz-question-card">
+            <div class="quiz-q-title">Q2. 在同一個發點重複敲擊鐵鎚 10 次並進行「垂直疊加（Stacking）」的主要目的是？</div>
+            <div class="quiz-options">
+              <button class="quiz-opt-btn" onclick="checkQuiz(this, true, 'q2', '太棒了！同相位的震波同向相加，而隨機的風聲與人聲等雜訊正負互相抵消，SNR 能提升約 √N 倍！')">A. 提升訊噪比（SNR），讓同相位的有效波疊加放大、隨機環境雜訊互相抵消</button>
+              <button class="quiz-opt-btn" onclick="checkQuiz(this, false, 'q2', '波速是地層本身的彈性性質決定的，不會因敲擊次數變快喔。')">B. 改變地層彈性係數，讓震波跑得更快</button>
+              <button class="quiz-opt-btn" onclick="checkQuiz(this, false, 'q2', '鐵鎚敲擊每一次都會獨立產生一個精確的 t=0 脈衝。')">C. 修正 Trigger 開關接觸不良的時間延遲</button>
+            </div>
+            <div class="quiz-feedback" id="q2Feedback"></div>
+          </div>
+
+          <div class="quiz-question-card">
+            <div class="quiz-q-title">Q3. 為什麼自動挑選程式在小於 8 公尺的近支距拿不到可靠的表層速度 V₁？</div>
+            <div class="quiz-options">
+              <button class="quiz-opt-btn" onclick="checkQuiz(this, false, 'q3', '近支距的能量其實最強，雜訊通常在遠處（>30m）才構成困擾。')">A. 因為近支距的能量衰減太嚴重，沒有訊號</button>
+              <button class="quiz-opt-btn" onclick="checkQuiz(this, true, 'q3', '完全正確！近地表能量最強的是視速度僅約 160 m/s 的表面波（Ground roll），自動視窗容易誤挑，必須靠人工判讀！')">B. 因為近地表能量被強烈的表面波（Ground Roll）遮蔽，演算法容易受視窗偽影干擾</button>
+              <button class="quiz-opt-btn" onclick="checkQuiz(this, false, 'q3', '所有通道的採樣率完全相同（皆為 0.25 ms）。')">C. 因為近支距受波器的取樣頻率不足</button>
+            </div>
+            <div class="quiz-feedback" id="q3Feedback"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="watercolor-footer">
+    <div class="container footer-content">
+      <div class="footer-stamp">Seismic Inquiry Lab</div>
+      <h4 class="footer-title">臺北市立大學 · 地球物理通論實習紀錄</h4>
+      <p class="footer-desc">
+        本互動式課程介紹網頁基於 2026-10-07 於臺北市立大學圖書館後方施測之 <strong>202610_UTELS</strong> 測線真實資料製作。<br>
+        含 288 道實測 SEG-Y 數據、現場紀實照片與 Python ObsPy 訊號反演分析成果。
+      </p>
+    </div>
+  </footer>
+
+  <!-- 燈箱 Modal -->
+  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <button class="lightbox-close-btn" onclick="closeLightboxDirect()">×</button>
+      <img src="" alt="" class="lightbox-img" id="lightboxImg">
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <script>
+    /* 1. 圖片路徑備援與零留白自適應處理 (Robust Image Path Resolution) */
+    function handleImgError(img) {
+      // 嘗試次要備援路徑
+      if (!img.dataset.triedBackup) {
+        img.dataset.triedBackup = "1";
+        const currentSrc = img.getAttribute('src');
+        if (currentSrc.startsWith('assets/')) {
+          img.src = 'docs/seismic-inquiry/' + currentSrc;
+          return;
+        } else if (currentSrc.startsWith('docs/seismic-inquiry/assets/')) {
+          img.src = currentSrc.replace('docs/seismic-inquiry/', '');
+          return;
+        }
+      }
+
+      // 若備援路徑仍無法載入，立即平滑隱藏圖片外框容器，確保絕無空位懸空！
+      const container = img.closest('.photo-thumb-polaroid, .gear-card-img-wrap, .setup-photo-frame, .polaroid-item, .field-chart-frame');
+      if (container) {
+        container.classList.add('img-collapsed');
+      }
+
+      // 如果是 setup-detail-panel 或 finding-two-col 內的照片失效，網格自動轉為單欄，版面自然完整
+      const setupPanel = img.closest('.setup-detail-panel');
+      if (setupPanel) setupPanel.classList.add('no-photo-grid');
+
+      const findingCol = img.closest('.finding-two-col');
+      if (findingCol) findingCol.classList.add('no-photo-col');
+
+      const shotCard = img.closest('.shot-info-card');
+      if (shotCard) shotCard.classList.add('no-photo-shot');
+    }
+
+    /* 2. 照片顯示開關 (Toggle Photos Mode) */
+    let photosVisible = true;
+    function togglePhotosMode() {
+      photosVisible = !photosVisible;
+      const btn = document.getElementById('photoToggleBtn');
+      const icon = document.getElementById('photoToggleIcon');
+      const text = document.getElementById('photoToggleText');
+
+      if (photosVisible) {
+        document.body.classList.remove('hide-photos');
+        btn.classList.remove('mode-hidden');
+        icon.textContent = '📷';
+        text.textContent = '顯示照片';
+      } else {
+        document.body.classList.add('hide-photos');
+        btn.classList.add('mode-hidden');
+        icon.textContent = '🎨';
+        text.textContent = '純文字水彩版 (無照片)';
+      }
+    }
+
+    /* 3. 閱讀進度條 */
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const total = doc.scrollHeight - doc.clientHeight;
+      document.getElementById('readingProgress').style.width = total > 0 ? (doc.scrollTop / total * 100) + '%' : '0%';
+    });
+
+    /* 4. 燈箱功能 */
+    const modal = document.getElementById('lightboxModal');
+    const modalImg = document.getElementById('lightboxImg');
+    const modalCap = document.getElementById('lightboxCaption');
+
+    function openLightbox(src, caption) {
+      modalImg.src = src;
+      modalCap.textContent = caption;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightboxDirect() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function closeLightbox(e) {
+      if (e.target === modal) closeLightboxDirect();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) closeLightboxDirect();
+    });
+
+    /* 5. 流程切換 */
+    const setupStepsData = [
+      {
+        title: "階段 01：建立測線與空間距離基準",
+        question: "「只有波形沒有位置，能不能建立地下模型？」",
+        desc: "以皮尺自圖書館後方由北向南拉設 46 公尺。每隔 2 公尺定為一個測站，皮尺為每一個觀測點提供了精確的幾何位置坐標，奠定後續速度計算的距離基礎。",
+        tags: ["空間幾何", "皮尺基準", "北向南 46m"],
+        img: "assets/images/1000050456.jpg",
+        caption: "以皮尺精準標定受波器與發點空間位置"
+      },
+      {
+        title: "階段 02：受波器垂直插設與土壤良好耦合",
+        question: "「感測器隨便插在草皮上，量得到的震波會一樣嗎？」",
+        desc: "學生沿測線每 2 公尺將垂直向受波器長金屬尖腳垂直插設入土。地表鬆散草皮會吸收高頻能量，唯有與硬實土壤緊密耦合，才能完整感測微弱的垂直振動。",
+        tags: ["Ground Coupling", "垂直 P 波", "24 站插設"],
+        img: "assets/images/1000050461.jpg",
+        caption: "學生合作將 24 支垂直向受波器確實插進地面"
+      },
+      {
+        title: "階段 03：訊號電纜對位與資料溯源 (Provenance)",
+        question: "「感測器量到振動之後，資料怎麼保證回到正確的 Channel？」",
+        desc: "多芯電纜線上的 24 個夾頭依次連接受波器。學生二人一組相互覆核，確保 0m 對應 Channel 1、46m 對應 Channel 24，防止任何接線錯置導致幾何毀損。",
+        tags: ["Takeout Cable", "Channel 1~24", "雙人覆核"],
+        img: "assets/images/1000050464.jpg",
+        caption: "學生細心檢查並連接受波器與電纜夾頭"
+      },
+      {
+        title: "階段 04：全系統整測、電瓶供電與通訊建立",
+        question: "「一個科學量測系統，需要哪些環節同時正確？」",
+        desc: "震測儀接上 12V 汽車大電瓶、插上 Trigger 信號線與 24 道電纜，再透過通訊線連回野外筆電。開啟軟體進行線路阻抗測試，確認 24 道皆無死道或短路。",
+        tags: ["DAS-1 主機", "12V 電瓶", "通訊即時同步"],
+        img: "assets/images/1000050469.jpg",
+        caption: "所有感測導線整齊接入 DAS-1 震測主機"
+      },
+      {
+        title: "階段 05：同發點重複敲擊與訊號垂直疊加",
+        question: "「為什麼不是敲一次就好？疊加真的能壓制雜訊嗎？」",
+        desc: "鐵鎚擊打特製鋼板產生人工震源。同一個發點重複敲擊 3~15 次，同相位的震波線性疊加放大，背景隨機雜訊互相抵消，訊噪比顯著提升，初達波變得銳利分明。",
+        tags: ["Sledgehammer", "鋼板耦合", "Stacking 垂直疊加"],
+        img: "assets/images/1000050473.jpg",
+        caption: "學生手持鐵鎚重擊鋼板，產生精準人工震源"
+      },
+      {
+        title: "階段 06：螢幕即時診斷與現場科學判讀",
+        question: "「螢幕上一大堆震動波形，哪一個時間點才是關鍵？」",
+        desc: "每次敲擊後，電腦即刻顯示 24 道波形。師生圍繞螢幕即時判讀初達波（First Arrival），檢查近距離直達波與遠距離折射波趨勢，確認品質合格才移動發點。",
+        tags: ["First Arrival", "直達波與折射波", "品質管控"],
+        img: "assets/images/1000050482.jpg",
+        caption: "師生現場圍繞螢幕即時討論波形特徵與到時判讀"
+      }
+    ];
+
+    function switchSetupStep(index) {
+      document.querySelectorAll('.btn-setup-step').forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+      });
+      const data = setupStepsData[index];
+      const panel = document.getElementById('setupDetailPanel');
+      panel.innerHTML = `
+        <div class="setup-photo-frame" onclick="openLightbox('${data.img}', '${data.caption}')">
+          <img src="${data.img}" alt="${data.title}" loading="lazy" onerror="handleImgError(this)">
+          <div class="setup-caption">${data.caption}</div>
+        </div>
+        <div class="setup-info-box">
+          <h3>${data.title}</h3>
+          <div class="setup-question-quote">${data.question}</div>
+          <p>${data.desc}</p>
+          <div class="setup-tags">
+            ${data.tags.map(t => `<span class="setup-tag-pill"># ${t}</span>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+    switchSetupStep(0);
+
+    /* 6. 模擬器 */
+    const v1Slider = document.getElementById('v1Slider');
+    const v2Slider = document.getElementById('v2Slider');
+    const hSlider = document.getElementById('hSlider');
+    const xSlider = document.getElementById('xSlider');
+
+    const v1Label = document.getElementById('v1Label');
+    const v2Label = document.getElementById('v2Label');
+    const hLabel = document.getElementById('hLabel');
+    const xLabel = document.getElementById('xLabel');
+
+    const statTd = document.getElementById('statTd');
+    const statTr = document.getElementById('statTr');
+    const statWinner = document.getElementById('statWinner');
+    const statCritAngle = document.getElementById('statCritAngle');
+    const statXc = document.getElementById('statXc');
+    const crossoverSummary = document.getElementById('crossoverSummary');
+    const simSvgChart = document.getElementById('simSvgChart');
+
+    function updateSimulator() {
+      let v1 = parseFloat(v1Slider.value);
+      let v2 = parseFloat(v2Slider.value);
+      let h = parseFloat(hSlider.value);
+      let x = parseFloat(xSlider.value);
+
+      if (v2 <= v1 + 50) {
+        v2 = v1 + 50;
+        v2Slider.value = v2;
+      }
+
+      v1Label.textContent = `${v1} m/s`;
+      v2Label.textContent = `${v2} m/s`;
+      hLabel.textContent = `${h.toFixed(1)} m`;
+      xLabel.textContent = `${x.toFixed(1)} m`;
+
+      const sinCrit = v1 / v2;
+      const critAngleRad = Math.asin(sinCrit);
+      const critAngleDeg = (critAngleRad * 180 / Math.PI).toFixed(1);
+      const cosCrit = Math.cos(critAngleRad);
+
+      const ti = (2 * h * cosCrit) / v1;
+      const xc = (2 * h * Math.sqrt((v2 + v1) / (v2 - v1)));
+
+      const td = (x / v1) * 1000;
+      const tr = ((x / v2) + ti) * 1000;
+
+      statTd.textContent = `${td.toFixed(1)} ms`;
+      statTr.textContent = `${tr.toFixed(1)} ms`;
+      statCritAngle.textContent = `${critAngleDeg}°`;
+      statXc.textContent = `${xc.toFixed(1)} m`;
+
+      if (x < xc) {
+        statWinner.textContent = '直達波領先抵達';
+        statWinner.style.color = '#557A69';
+        crossoverSummary.innerHTML = `目前支距 <strong>${x.toFixed(1)} m</strong> < 交錯距離 <strong>${xc.toFixed(1)} m</strong>：近距離路徑短，直達波最先到達。`;
+      } else {
+        statWinner.textContent = '折射波領先抵達！';
+        statWinner.style.color = '#D96A3A';
+        crossoverSummary.innerHTML = `目前支距 <strong>${x.toFixed(1)} m</strong> > 交錯距離 <strong>${xc.toFixed(1)} m</strong>：遠距離折射波走高速層（${v2} m/s），後發先至！`;
+      }
+
+      renderSimSvg(v1, v2, h, x, xc, td, tr);
+    }
+
+    function renderSimSvg(v1, v2, h, curX, xc, curTd, curTr) {
+      const W = 540, H = 320;
+      const m = { top: 30, right: 30, bottom: 45, left: 55 };
+      const plotW = W - m.left - m.right;
+      const plotH = H - m.top - m.bottom;
+
+      const maxDist = 60;
+      const maxTimeMs = 160;
+
+      const scaleX = d => m.left + (d / maxDist) * plotW;
+      const scaleY = t => m.top + plotH - (t / maxTimeMs) * plotH;
+
+      let svgHtml = `
+        <rect x="${m.left}" y="${m.top}" width="${plotW}" height="${plotH}" fill="#FCFAF6" stroke="#E2DACF" stroke-width="1.2" rx="6" />
+      `;
+
+      for (let d = 0; d <= maxDist; d += 10) {
+        const sx = scaleX(d);
+        svgHtml += `
+          <line x1="${sx}" y1="${m.top}" x2="${sx}" y2="${m.top + plotH}" stroke="#EFE9DE" stroke-dasharray="3,3" />
+          <text x="${sx}" y="${H - 22}" text-anchor="middle" font-size="11" fill="#7E909F">${d}m</text>
+        `;
+      }
+
+      for (let t = 0; t <= maxTimeMs; t += 40) {
+        const sy = scaleY(t);
+        svgHtml += `
+          <line x1="${m.left}" y1="${sy}" x2="${m.left + plotW}" y2="${sy}" stroke="#EFE9DE" stroke-dasharray="3,3" />
+          <text x="${m.left - 10}" y="${sy + 4}" text-anchor="end" font-size="11" fill="#7E909F">${t}ms</text>
+        `;
+      }
+
+      const td0_x = scaleX(0), td0_y = scaleY(0);
+      const tdMax_x = scaleX(maxDist), tdMax_y = scaleY((maxDist / v1) * 1000);
+
+      const sinCrit = v1 / v2;
+      const tiMs = ((2 * h * Math.cos(Math.asin(sinCrit))) / v1) * 1000;
+      const tr0_x = scaleX(0), tr0_y = scaleY(tiMs);
+      const trMax_x = scaleX(maxDist), trMax_y = scaleY(((maxDist / v2) * 1000) + tiMs);
+
+      svgHtml += `
+        <line x1="${td0_x}" y1="${td0_y}" x2="${tdMax_x}" y2="${tdMax_y}" stroke="#557A69" stroke-width="2.5" />
+        <text x="${scaleX(46)}" y="${scaleY((46/v1)*1000) - 8}" fill="#557A69" font-size="11" font-weight="700">直達波</text>
+        <line x1="${tr0_x}" y1="${tr0_y}" x2="${trMax_x}" y2="${trMax_y}" stroke="#D69A49" stroke-width="2.5" stroke-dasharray="5,4" />
+        <text x="${scaleX(44)}" y="${scaleY(((44/v2)*1000)+tiMs) - 8}" fill="#D69A49" font-size="11" font-weight="700">折射波</text>
+      `;
+
+      if (xc <= maxDist) {
+        const xcX = scaleX(xc);
+        const xcY = scaleY((xc / v1) * 1000);
+        svgHtml += `
+          <line x1="${xcX}" y1="${m.top}" x2="${xcX}" y2="${m.top + plotH}" stroke="#B85843" stroke-width="1.5" stroke-dasharray="4,4" />
+          <circle cx="${xcX}" cy="${xcY}" r="6" fill="#B85843" stroke="#fff" stroke-width="2" />
+          <text x="${xcX + 6}" y="${m.top + 16}" fill="#B85843" font-size="11" font-weight="700">xc = ${xc.toFixed(1)}m</text>
+        `;
+      }
+
+      const curX_px = scaleX(curX);
+      const curTd_px = scaleY(curTd);
+      const curTr_px = scaleY(curTr);
+      const firstY = Math.min(curTd_px, curTr_px);
+
+      svgHtml += `
+        <line x1="${curX_px}" y1="${m.top}" x2="${curX_px}" y2="${m.top + plotH}" stroke="#4E86A8" stroke-width="1.8" />
+        <circle cx="${curX_px}" cy="${curTd_px}" r="5" fill="#557A69" />
+        <circle cx="${curX_px}" cy="${curTr_px}" r="5" fill="#D69A49" />
+        <circle cx="${curX_px}" cy="${firstY}" r="8" fill="none" stroke="#D96A3A" stroke-width="2.5" />
+        <text x="${m.left + plotW / 2}" y="${H - 5}" text-anchor="middle" font-size="12" font-weight="700" fill="#27343F">觀測支距 Distance (m)</text>
+        <text x="16" y="${m.top + plotH / 2}" text-anchor="middle" transform="rotate(-90 16 ${m.top + plotH / 2})" font-size="12" font-weight="700" fill="#27343F">走時 (ms)</text>
+      `;
+
+      simSvgChart.innerHTML = svgHtml;
+    }
+
+    [v1Slider, v2Slider, hSlider, xSlider].forEach(slider => {
+      slider.addEventListener('input', updateSimulator);
+    });
+    updateSimulator();
+
+    /* 7. 發現頁籤 */
+    function switchFindingTab(index) {
+      document.querySelectorAll('.btn-finding-tab').forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+      });
+      document.querySelectorAll('.finding-content-panel').forEach((panel, i) => {
+        panel.classList.toggle('active', i === index);
+      });
+    }
+
+    /* 8. 12 炮點儀表板 */
+    const fieldShotsData = [
+      { ffid: 101, n: 1,  x: 0,  stack: 15, time: "11:13:29", span: "0 ~ +46 m", note: "起始第一炮，疊加 15 次，訊噪比最高" },
+      { ffid: 102, n: 2,  x: 4,  stack: 14, time: "11:17:28", span: "-4 ~ +42 m", note: "Shot 2，完成第二組雙向幾何量測" },
+      { ffid: 103, n: 3,  x: 8,  stack: 14, time: "11:19:54", span: "-8 ~ +38 m", note: "Shot 3，進入穩定折射段起始點" },
+      { ffid: 104, n: 4,  x: 12, stack: 15, time: "11:21:48", span: "-12 ~ +34 m", note: "Shot 4，重鎚力道穩定，疊加 15 次" },
+      { ffid: 105, n: 5,  x: 16, stack: 13, time: "11:23:54", span: "-16 ~ +30 m", note: "Shot 5，接近測線前三分之一處" },
+      { ffid: 106, n: 6,  x: 20, stack: 9,  time: "11:25:33", span: "-20 ~ +26 m", note: "Shot 6，疊加 9 次，波形清楚" },
+      { ffid: 107, n: 7,  x: 24, stack: 11, time: "11:29:12", span: "-24 ~ +22 m", note: "Shot 7，測線正中心點，互換檢核核心" },
+      { ffid: 108, n: 8,  x: 28, stack: 3,  time: "11:30:15", span: "-28 ~ +18 m", note: "Shot 8，全線疊加次數最少（僅 3 次）" },
+      { ffid: 109, n: 9,  x: 32, stack: 11, time: "11:32:53", span: "-32 ~ +14 m", note: "Shot 9，開始向測線南端推進" },
+      { ffid: 110, n: 10, x: 36, stack: 13, time: "11:34:39", span: "-36 ~ +10 m", note: "Shot 10，敲擊點接近末端" },
+      { ffid: 111, n: 11, x: 40, stack: 9,  time: "11:36:16", span: "-40 ~ +6 m", note: "Shot 11，皮尺 40m 處" },
+      { ffid: 112, n: 12, x: 44, stack: 14, time: "11:38:01", span: "-44 ~ +2 m", note: "最終炮 Shot 12，完成全線 288 道量測" }
+    ];
+
+    function renderShotButtons() {
+      const row = document.getElementById('shotButtonsRow');
+      row.innerHTML = fieldShotsData.map((s, idx) => `
+        <button class="btn-shot-node ${idx === 0 ? 'active' : ''}" onclick="selectShot(${idx})">
+          <span>S${s.n}</span>
+          <small>${s.x}m</small>
+        </button>
+      `).join('');
+      updateShotCard(0);
+    }
+
+    function selectShot(idx) {
+      document.querySelectorAll('.btn-shot-node').forEach((btn, i) => {
+        btn.classList.toggle('active', i === idx);
+      });
+      updateShotCard(idx);
+    }
+
+    function updateShotCard(idx) {
+      const s = fieldShotsData[idx];
+      const card = document.getElementById('shotInfoCard');
+
+      let shotImg = "assets/images/1000050473.jpg";
+      if (s.n === 2) shotImg = "assets/images/1000050498.jpg";
+      else if (s.n === 3) shotImg = "assets/images/1000050501.jpg";
+      else if (s.n === 7) shotImg = "assets/images/1000050511.jpg";
+      else if (s.n === 8) shotImg = "assets/images/1000050516.jpg";
+      else if (s.n === 10) shotImg = "assets/images/1000050523.jpg";
+      else if (s.n === 12) shotImg = "assets/images/1000050533.jpg";
+
+      card.innerHTML = `
+        <div>
+          <h4 style="font-family:var(--font-serif); font-size:1.3rem; color:var(--pigment-indigo); margin-bottom:10px;">
+            發點 S${s.n} · 敲擊位置 x = ${s.x} 公尺
+          </h4>
+          <table class="shot-table-clean">
+            <tr><th>原始檔號 (FFID)</th><td>${s.ffid}.dat / Ensemble ${s.n}</td></tr>
+            <tr><th>敲擊疊加次數</th><td><strong>${s.stack} 次</strong> (${s.stack <= 5 ? '<span style="color:#B85843">疊加偏少</span>' : '<span style="color:#4E7C65">訊號飽滿</span>'})</td></tr>
+            <tr><th>記錄時間戳記</th><td>${s.time} (晴，日間)</td></tr>
+            <tr><th>支距涵蓋範圍</th><td>${s.span}</td></tr>
+            <tr><th>現場紀錄說明</th><td>${s.note}</td></tr>
+          </table>
+        </div>
+        <div style="text-align:center;">
+          <div class="setup-photo-frame" onclick="openLightbox('${shotImg}', '發點 S${s.n} 現場作業照片（x = ${s.x} m，疊加 ${s.stack} 次）')">
+            <img src="${shotImg}" alt="Shot ${s.n}" style="height:180px;" loading="lazy" onerror="handleImgError(this)">
+            <div class="setup-caption">S${s.n} (x = ${s.x} m) 施測紀錄</div>
+          </div>
+        </div>
+      `;
+    }
+    renderShotButtons();
+
+    /* 9. 隨堂測驗回饋 */
+    function checkQuiz(btn, isCorrect, qId, explanation) {
+      const parent = btn.parentElement;
+      const feedback = document.getElementById(qId + 'Feedback');
+
+      parent.querySelectorAll('.quiz-opt-btn').forEach(b => {
+        b.classList.remove('correct', 'incorrect');
+      });
+
+      if (isCorrect) {
+        btn.classList.add('correct');
+        feedback.className = 'quiz-feedback show success';
+        feedback.innerHTML = `<strong>🎉 恭喜答對！</strong> ${explanation}`;
+      } else {
+        btn.classList.add('incorrect');
+        feedback.className = 'quiz-feedback show warning';
+        feedback.innerHTML = `<strong>💡 差一點點喔！</strong> ${explanation}`;
+      }
+    }
+  </script>
+</body>
+</html>
